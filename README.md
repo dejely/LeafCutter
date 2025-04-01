@@ -8,9 +8,9 @@ Leaf cutter is a decentrallized Application (dApp) built using Solidity smart co
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
+- [Features](#Features)
+- [Technologies Used](#Technologies-used)
+- [Contributing](#Contribution)
 
 ---
 
@@ -32,8 +32,8 @@ Ensure you have the following installed:
    cd LeafCutter
 
 
-### features
+### Features
 
-### technologies-used
+### Technologies-used
 
-### contribution
+### Contribution
