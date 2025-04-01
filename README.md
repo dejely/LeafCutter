@@ -31,10 +31,14 @@ Ensure you have the following installed:
    git clone https://github.com/dejely/LeafCutter.git
    cd LeafCutter
 
+---
 ### Usage
 
+---
 ### Features
 
+---
 ### Technologies-used
 
+---
 ### Contribution
