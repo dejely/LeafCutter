@@ -1,7 +1,7 @@
 # LeafCutter
 
 **Description**:  
-Leaf cutter is a decentrallized Application (dApp) built using Solidity smart contracts and Web3 technologies to automate tax compliance processes. It aims to provide a transparent, efficient, and tamper-proof solution for tax calculation, reporting, and auditing. With blockchain technology, this system ensures that tax data is immutable, auditable, and easily accessible for both businesses and government authorities.
+Leaf cutter is a decentralized Application (dApp) built using Solidity smart contracts and Web3 technologies to automate tax compliance processes. It aims to provide a transparent, efficient, and tamper-proof solution for tax calculation, reporting, and auditing. With blockchain technology, this system ensures that tax data is immutable, auditable, and easily accessible for both businesses and government authorities.
 ---
 
 ## Table of Contents
