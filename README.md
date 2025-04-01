@@ -30,3 +30,10 @@ Ensure you have the following installed:
    ```bash
    git clone https://github.com/dejely/LeafCutter.git
    cd LeafCutter
+
+
+### features
+
+### technologies-used
+
+### contribution
