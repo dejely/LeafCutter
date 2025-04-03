@@ -28,8 +28,8 @@ Ensure you have the following installed:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/dejely/LeafCutter.git
-   cd LeafCutter
+   git clone https://github.com/dejely/LeafCutter-Backend.git
+   cd LeafCutter-Backend
 
 ---
 ### Usage
