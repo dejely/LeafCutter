@@ -1,24 +1,45 @@
-# Operating System Files
-.DS_Store           
-Thumbs.db           
-desktop.ini         
-*.swp               
+# Solidity/Hardhat/Truffle/Foundry Projects
 
-# IDE/Editor Files
-.vscode/
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
+# Build Artifacts
+artifacts/       # Hardhat compiled contracts
+cache/           # Hardhat/Truffle compilation cache
+typechain/       # TypeChain generated type bindings
+coverage/        # Test coverage reports
+coverage.json    # Coverage data
+out/             # Foundry build output
+deployments/     # Deployment scripts output
 
-# Environment Files
-.env
-.env.local
-.secret
-*.key
+# Environment Variables
+.env             # Environment secrets
+.env.local       # Local environment overrides
+.env.*           # All environment files
 
 # Dependency Directories
-node_modules/
-jspm_packages/
-bower_components/
+node_modules/    # Node.js dependencies
+lib/             # For projects using DappHub/ds-test
+bin/             # Compiled binaries
+
+# Testing
+report.xml       # CI test reports
+gas-report.txt   # Gas usage reports
+
+# Logs
+*.log            # Transaction/error logs
+npm-debug.log*
+yarn-debug.log*
+
+# IDE
+.vscode/         # VS Code settings
+.idea/           # IntelliJ IDE files
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary Files
+*.tmp
+*.swp
+*~
+# Sensitive Files
+*.secret         
+*.priv           
