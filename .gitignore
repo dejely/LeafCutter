@@ -1,78 +1,14 @@
-# Node.js
+# Ignore all HTML files
+*/*.html
+
+# Ignore all CSS files
+*.css
+
+# General development ignores (optional but recommended)
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-yarn.lock
-
-# Environment variables
 .env
-.env.local
-.env.development
-.env.production
-
-# Build directories
+.DS_Store
 dist/
 build/
-out/
-.cache/
-.next/
-
-# IDE specific
-.vscode/
 .idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# OS generated
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Solidity/Hardhat
-artifacts/
-cache/
-typechain/
-coverage/
-coverage.json
-
-# Dependency directories
-jspm_packages/
-bower_components/
-
-# Logs
-logs/
-*.log
-
-# Testing
-/coverage
-/.nyc_output
-
-# Local development
-.local
-*.local
-
-# Debug files
-*.eth
-*.sol
-*.debug
-
-# Editor config
-*.sublime-project
-*.sublime-workspace
-
-# Temporary files
-*.tmp
-*.temp
-
-# Custom
-.secrets
-deployments/
+.vscode/
