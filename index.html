@@ -1,34 +1,124 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>TaxCompliance test</title>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="src/App.css" />
-  </head>
-
-  <body>
-    <div class="container">
-      <h1>TAX dApp</h1>
-      <div class="connect">
-        <button id="connectWalletBtn">Connect Wallet</button>
-        <div id="userAddress"></div>
-      </div>
-      <div id="connectMessage">Please connect your wallet to tweet.</div>
-      <form id="tweetForm" style="display: none;">
-        <textarea
-          id="tweetContent"
-          rows="4"
-          placeholder="What's happening?"
-        ></textarea
-        ><br />
-        <button id="tweetSubmitBtn" type="submit">Tweet</button>
-      </form>
-      <div id="tweetsContainer"></div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Compliance System</title>
+    <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+    <h1>Tax Compliance System</h1>
+    
+    <div class="section">
+        <button onclick="connectWallet()">Connect Wallet</button>
+        <p id="walletStatus">Not connected</p>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"></script>
-    <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
-    <script type="module" src="index.js"></script>
+    <div class="section">
+        <h2>Report Income</h2>
+        <input type="number" id="incomeAmount" placeholder="Enter income amount">
+        <button onclick="reportIncome()">Report Income</button>
+    </div>
 
-  </body>
+    <div class="section">
+        <h2>Calculate Tax</h2>
+        <button onclick="calculateTax()">Calculate My Tax</button>
+        <div id="taxResult" class="result"></div>
+    </div>
+
+    <div class="section">
+        <h2>Pay Taxes</h2>
+        <input type="number" id="taxAmount" placeholder="Enter tax amount">
+        <button onclick="payTax()">Pay Tax</button>
+    </div>
+
+    <div class="section" id="governmentSection" style="display: none;">
+        <h2>Government Audit</h2>
+        <input type="text" id="userAddress" placeholder="Enter user address">
+        <button onclick="auditUser()">Audit User</button>
+        <div id="auditResult" class="result"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script>
+        let web3;
+        let contract;
+        let account;
+
+        const contractAddress = '0xBBf94EC94c748f997F2f6E6cf114Caa052184DEB';       
+        const contractABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"taxAmount","type":"uint256"}],"name":"taxFiled","type":"event"},{"inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"audit_User","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"calcTax","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"government","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"income","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"payTax","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"reportIncome","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"taxPaid","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]
+
+        async function connectWallet() {
+            if (window.ethereum) {
+                try {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    web3 = new Web3(window.ethereum);
+                    account = (await web3.eth.getAccounts())[0];
+                    document.getElementById('walletStatus').textContent = `Connected: ${account}`;
+                    contract = new web3.eth.Contract(contractABI, contractAddress);
+                    
+                    // Check if government
+                    const government = await contract.methods.government().call();
+                    if (account.toLowerCase() === government.toLowerCase()) {
+                        document.getElementById('governmentSection').style.display = 'block';
+                    }
+                } catch (error) {
+                    alert('Error connecting wallet: ' + error.message);
+                }
+            } else {
+                alert('Please install MetaMask!');
+            }
+        }
+
+        async function reportIncome() {
+            const amount = document.getElementById('incomeAmount').value;
+            try {
+                await contract.methods.reportIncome(amount).send({ from: account });
+                alert('Income reported successfully!');
+            } catch (error) {
+                alert('Error reporting income: ' + error.message);
+            }
+        }
+
+        async function calculateTax() {
+        try {
+            const tax = await contract.methods.calcTax(account).call();
+            
+            document.getElementById('taxResult').innerHTML = 
+                `Your calculated tax: ${tax}`;
+        } catch (error) {
+            alert('Error calculating tax: ' + error.message);
+        }
+    }
+
+
+        function formatCurrency(numString) {
+            return numString.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        async function payTax() {
+            const amount = document.getElementById('taxAmount').value;
+            try {
+                await contract.methods.payTax().send({ 
+                    from: account,
+                    value: amount
+                });
+                alert('Tax paid successfully!');
+            } catch (error) {
+                alert('Error paying tax: ' + error.message);
+            }
+        }
+
+        async function auditUser() {
+            const userAddress = document.getElementById('userAddress').value;
+            try {
+                const [income, taxPaid] = await contract.methods.audit_User(userAddress).call();
+                document.getElementById('auditResult').innerHTML = 
+                    `Income: ${income} wei<br>Tax Paid: ${taxPaid} wei`;
+            } catch (error) {
+                alert('Error auditing user: ' + error.message);
+            }
+        }
+    </script>
+</body>
 </html>

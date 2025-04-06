@@ -1,4 +1,7 @@
 // SPDX-License-Identifier: MIT
+
+//Contract address: 0xBBf94EC94c748f997F2f6E6cf114Caa052184DEB
+
 pragma solidity ^0.8.26;
 
 contract taxCompliance {
@@ -23,27 +26,29 @@ contract taxCompliance {
         income[msg.sender] += amount;
     }
 
-    function calcTax(address user, uint256 rate) public view returns (uint256) {
+    function calcTax(address user) public view returns (uint256) {
+
+        uint256 _income = income[user];
+
         //According to the Income tax table of 2023
-        if (income[user] <= 250000){ 
-            return (income[user]);
-        }else if(income[user] > 250000 && income[user] <= 400000){
-            return ((income[user] - 250000) * 15) / 100;
-        }else if(income[user] > 400000 && income[user] <= 800000){
-            return ((income[user] - 400000) * 20) / 100 + 22500;   
-        }else if(income[user] > 800000 && income[user] <= 2000000){
-            return ((income[user] - 800000) * 25) / 100 + 102500;   
-        }else if(income[user] > 2000000 && income[user] <= 8000000){
-            return ((income[user] - 2000000) * 30) / 100 + 402500;   
+        if (_income <= 250000){ 
+            return 0;
+        }else if(_income > 250000 && _income <= 400000){
+            return ((_income - 250000) * 15) / 100;
+        }else if(_income > 400000 && _income <= 800000){
+            return ((_income - 400000) * 20) / 100 + 22500;   
+        }else if(_income > 800000 && _income<= 2000000){
+            return ((_income - 800000) * 25) / 100 + 102500;   
+        }else if(income[user] > 2000000 && _income <= 8000000){
+            return ((_income - 2000000) * 30) / 100 + 402500;   
         }else if(income[user] > 8000000){
-            return ((income[user] - 5000000) * 35) / 100 + 2202500;   
+            return ((_income - 5000000) * 35) / 100 + 2202500;   
         }
 
-        return (income[user] * rate) / 100; //arg rate needs to be const instead of relying on user input
     }
 
-    function payTax(uint256 rate) public payable {
-        uint256 taxAmount = calcTax(msg.sender, rate);
+    function payTax() public payable {
+        uint256 taxAmount = calcTax(msg.sender);
         require(msg.value <= taxAmount, "Insufficient tax payment");
         taxPaid[msg.sender] += taxAmount;
         emit taxFiled(msg.sender, taxAmount); //Is connected with event initialization
