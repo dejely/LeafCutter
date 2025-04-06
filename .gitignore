@@ -1,14 +1,24 @@
-# Ignore all HTML files
-*.html
+# Operating System Files
+.DS_Store           # macOS
+Thumbs.db           # Windows
+desktop.ini         # Windows
+*.swp               # Vim swap files
 
-# Ignore all CSS files
-*.css
-
-# General development ignores (optional but recommended)
-node_modules/
-.env
-.DS_Store
-dist/
-build/
-.idea/
+# IDE/Editor Files
 .vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Environment Files
+.env
+.env.local
+.secret
+*.key
+
+# Dependency Directories
+node_modules/
+jspm_packages/
+bower_components/
