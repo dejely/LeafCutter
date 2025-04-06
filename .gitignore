@@ -1,8 +1,8 @@
 # Operating System Files
-.DS_Store           # macOS
-Thumbs.db           # Windows
-desktop.ini         # Windows
-*.swp               # Vim swap files
+.DS_Store           
+Thumbs.db           
+desktop.ini         
+*.swp               
 
 # IDE/Editor Files
 .vscode/
